@@ -46,7 +46,7 @@ HYDRA_API_KEY = ""  # API key for NZBHydra2
 INSTADL_API = ""  # URL/endpoint for InstaDL API
 
 # GDrive Tools
-GDRIVE_ID = ""  # Default Google Drive Folder/TeamDrive ID or "root"
+GDRIVE_ID = "1-DtA-Yd3u1N7rnuRlLc9x0riJRg5FNzI"  # Default Google Drive Folder/TeamDrive ID or "root"
 IS_TEAM_DRIVE = False  # Set True if GDRIVE_ID is a TeamDrive
 STOP_DUPLICATE = False  # Check for duplicate file/folder names before uploading
 INDEX_URL = ""  # Index URL for the GDrive_ID
