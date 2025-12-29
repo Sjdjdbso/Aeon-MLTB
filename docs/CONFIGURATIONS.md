@@ -19,6 +19,7 @@
 | `SUDO_USERS`              | `str`          | User IDs with sudo permission. Separate by spaces. |
 | `UPLOAD_PATHS`            | `dict`         | Dict with upload paths. Example: `{"path 1": "remote:", "path 2": "gdrive id", ...}` |
 | `DEFAULT_UPLOAD`          | `str`          | `rc` for `RCLONE_PATH`, `gd` for `GDRIVE_ID`. Default: `rc`. [Read More](https://github.com/anasty17/mirror-leech-telegram-bot/tree/master#upload). |
+| `INCLUDED_EXTENSIONS`     | `str`          | File extensions to be uploaded/cloned. `EXCLUDED_EXTENSIONS` will be ignore if you filled this ! Separate them by spaces. |
 | `EXCLUDED_EXTENSIONS`     | `str`          | File extensions to skip during processing. Separate by spaces. |
 | `INCOMPLETE_TASK_NOTIFIER`| `bool`         | Notify after restart for incomplete tasks. Requires `DATABASE_URL` and the bot to be in a supergroup. Default: `False`. |
 | `FILELION_API`            | `str`          | API key from [FileLion](https://vidhide.com/?op=my_account). |
@@ -63,7 +64,6 @@
 | `AS_DOCUMENT`            | `bool`          | Upload leeched files as documents. Default: `False` (uploads as media). |
 | `USER_TRANSMISSION`      | `bool`          | Use user session for uploads/downloads in supergroups. Default: `False`. |
 | `HYBRID_LEECH`           | `bool`          | Switch between bot and user sessions for leeching based on file size. Default: `False`. |
-| `LEECH_FILENAME_PREFIX`  | `str`           | Prefix to add to leeched file names. |
 | `LEECH_DUMP_CHAT`        | `list[str/int]` | Chat/Channel ID(s) to send leeched files. Use `-100` prefix for private channels or `chat_id|thread_id` for topics. |
 | `THUMBNAIL_LAYOUT`       | `str`           | Layout like `2x2`, `4x4`, `3x3`, etc. |
 
@@ -135,3 +135,4 @@
 | `INSTADL_API`          | `str`  | URL or endpoint for InstaDL API integration. |
 | `HEROKU_APP_NAME`      | `str`  | Name of your Heroku app, used to get `BASE_URL` automatically. |
 | `HEROKU_API_KEY`       | `str`  | API key for accessing and controlling your Heroku app. |
+| `NAME_PREFIX`          | `str`  | Name prefix. |

@@ -22,6 +22,7 @@ from bot import (
     drives_ids,
     drives_names,
     excluded_extensions,
+    included_extensions,
     index_urls,
     intervals,
     jd_listener_lock,
@@ -30,10 +31,10 @@ from bot import (
     sudo_users,
     task_dict,
 )
-from bot.core.aeon_client import TgClient
 from bot.core.config_manager import Config
 from bot.core.jdownloader_booter import jdownloader
 from bot.core.startup import update_nzb_options, update_variables
+from bot.core.telegram_manager import TgClient
 from bot.core.torrent_manager import TorrentManager
 from bot.helper.ext_utils.bot_utils import SetInterval, new_task
 from bot.helper.ext_utils.db_handler import database
@@ -216,6 +217,12 @@ async def edit_variable(_, message, pre_message, key):
         for x in fx:
             x = x.lstrip(".")
             excluded_extensions.append(x.strip().lower())
+    elif key == "INCLUDED_EXTENSIONS":
+        fx = value.split()
+        included_extensions.clear()
+        for x in fx:
+            x = x.lstrip(".")
+            included_extensions.append(x.strip().lower())
     elif key == "GDRIVE_ID":
         if drives_names and drives_names[0] == "Main":
             drives_ids[0] = value
@@ -223,9 +230,9 @@ async def edit_variable(_, message, pre_message, key):
             drives_ids.insert(0, value)
     elif key == "INDEX_URL":
         if drives_names and drives_names[0] == "Main":
-            index_urls[0] = value.strip("/")
+            index_urls[0] = value
         else:
-            index_urls.insert(0, value.strip("/"))
+            index_urls.insert(0, value)
     elif key == "AUTHORIZED_CHATS":
         aid = value.split()
         auth_chats.clear()
@@ -400,7 +407,7 @@ async def update_private_file(_, message, pre_message):
                     drives_ids.append(temp[1])
                     drives_names.append(temp[0].replace("_", " "))
                     if len(temp) > 2:
-                        index_urls.append(temp[2]).strip("/")
+                        index_urls.append(temp[2])
                     else:
                         index_urls.append("")
         elif file_name in [".netrc", "netrc"]:
@@ -466,7 +473,7 @@ async def edit_bot_settings(client, query):
             )
             return
         await query.answer(
-            "Syncronization Started. JDownloader will get restarted. It takes up to 10 sec!",
+            "Synchronization Started. JDownloader will get restarted. It takes up to 10 sec!",
             show_alert=True,
         )
         await sync_jdownloader()
@@ -479,12 +486,24 @@ async def edit_bot_settings(client, query):
         await update_buttons(message, data[1])
     elif data[1] == "resetvar":
         await query.answer()
-        value = ""
+        expected_type = type(getattr(Config, data[2]))
+        if expected_type is bool:
+            value = False
+        elif expected_type is int:
+            value = 0
+        elif expected_type is str:
+            value = ""
+        elif expected_type is list:
+            value = []
+        elif expected_type is dict:
+            value = {}
         if data[2] in DEFAULT_VALUES:
             value = DEFAULT_VALUES[data[2]]
         elif data[2] == "EXCLUDED_EXTENSIONS":
             excluded_extensions.clear()
             excluded_extensions.extend(["aria2", "!qB"])
+        elif data[2] == "INCLUDED_EXTENSIONS":
+            included_extensions.clear()
         elif data[2] == "TORRENT_TIMEOUT":
             await TorrentManager.change_aria2_option("bt-stop-timeout", "0")
             await database.update_aria2("bt-stop-timeout", "0")
@@ -542,7 +561,7 @@ async def edit_bot_settings(client, query):
         await database.update_nzb_config()
     elif data[1] == "syncnzb":
         await query.answer(
-            "Syncronization Started. It takes up to 2 sec!",
+            "Synchronization Started. It takes up to 2 sec!",
             show_alert=True,
         )
         nzb_options.clear()

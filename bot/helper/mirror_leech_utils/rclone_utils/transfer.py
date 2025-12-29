@@ -1,5 +1,5 @@
 import contextlib
-from asyncio import create_subprocess_exec, gather, sleep, wait_for
+from asyncio import create_subprocess_exec, gather, wait_for
 from asyncio.subprocess import PIPE
 from configparser import RawConfigParser
 from json import loads
@@ -33,7 +33,6 @@ class RcloneTransferHelper:
         self._sa_index = 0
         self._sa_number = 0
         self._use_service_accounts = Config.USE_SERVICE_ACCOUNTS
-        self._rclone_select = False
 
     @property
     def transferred_size(self):
@@ -79,7 +78,6 @@ class RcloneTransferHelper:
                     self._speed,
                     self._eta,
                 ) = data[0]
-            await sleep(0.5)
 
     def _switch_service_account(self):
         if self._sa_index == self._sa_number - 1:
@@ -473,11 +471,10 @@ class RcloneTransferHelper:
         destination,
         method,
     ):
+        rclone_select = False
         if source.split(":")[-1].startswith("rclone_select"):
             source = f"{source.split(':')[0]}:"
-            self._rclone_select = True
-        else:
-            ext = "*.{" + ",".join(self._listener.excluded_extensions) + "}"
+            rclone_select = True
         cmd = [
             "xone",
             method,
@@ -495,9 +492,13 @@ class RcloneTransferHelper:
             "1",
             "-M",
         ]
-        if self._rclone_select:
+        if rclone_select:
             cmd.extend(("--files-from", self._listener.link))
+        elif self._listener.included_extensions:
+            ext = "*.{" + ",".join(self._listener.included_extensions) + "}"
+            cmd.extend(("--include", ext))
         else:
+            ext = "*.{" + ",".join(self._listener.excluded_extensions) + "}"
             cmd.extend(("--exclude", ext))
         if rcflags := self._listener.rc_flags:
             rcflags = rcflags.split("|")
