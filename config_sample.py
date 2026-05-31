@@ -1,11 +1,11 @@
 # REQUIRED CONFIG
-BOT_TOKEN = ""
+BOT_TOKEN = "8640195617:AAEquLauMYNDXKJG4ZD32hcY6KvA8-wcsh4"
 OWNER_ID = 0
-TELEGRAM_API = 0
-TELEGRAM_HASH = ""
+TELEGRAM_API = 31645863
+TELEGRAM_HASH = "d9d381dd4b7d5f246215d16101d0900d"
 
 # Recommended for persisting settings, RSS feeds, and task history. Essential for some features.
-DATABASE_URL = ""
+DATABASE_URL = "mongodb+srv://nazzawa09:nazzawa09@cluster0.umth574.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
 
 # OPTIONAL CONFIG
 TG_PROXY = {}  # Example: {"scheme": "socks5", "hostname": "11.22.33.44", "port": 1234, "username": "user", "password": "pass"}
@@ -48,9 +48,9 @@ INSTADL_API = ""  # URL/endpoint for InstaDL API
 NAME_PREFIX = ""
 
 # GDrive Tools
-GDRIVE_ID = ""  # Default Google Drive Folder/TeamDrive ID or "root"
+GDRIVE_ID = "1LRMw4LclRtkuB9jXHljKdd74KuafMl6M"  # Default Google Drive Folder/TeamDrive ID or "root"
 IS_TEAM_DRIVE = False  # Set True if GDRIVE_ID is a TeamDrive
-STOP_DUPLICATE = False  # Check for duplicate file/folder names before uploading
+STOP_DUPLICATE = True# Check for duplicate file/folder names before uploading
 INDEX_URL = ""  # Index URL for the GDrive_ID
 
 # Rclone
@@ -97,7 +97,7 @@ USER_TRANSMISSION = False  # Use user session for uploads/downloads (Premium onl
 HYBRID_LEECH = (
     False  # Switch between bot/user session based on file size (Premium only)
 )
-LEECH_DUMP_CHAT = []  # List of chat_ids or channel_ids to dump leeched files, e.g., [-100123456789, "channel_username"]
+LEECH_DUMP_CHAT = [-1003799808540]  # List of chat_ids or channel_ids to dump leeched files, e.g., [-100123456789, "channel_username"]
 THUMBNAIL_LAYOUT = ""  # Thumbnail layout for uploads (e.g., 2x2, 3x3)
 
 # qBittorrent/Aria2c
