@@ -9,10 +9,10 @@ DATABASE_URL = "mongodb+srv://nazzawa09:nazzawa09@cluster0.umth574.mongodb.net/?
 
 # OPTIONAL CONFIG
 TG_PROXY = {}  # Example: {"scheme": "socks5", "hostname": "11.22.33.44", "port": 1234, "username": "user", "password": "pass"}
-USER_SESSION_STRING = ""
+USER_SESSION_STRING = "BQHi4KcAtdXyWc5-TOi7hslcv1qCym3SPPyR8sJUYj0yE1urcj1D5PSAdWh2uDqgGcWpTquJhxKFobi4G2mPjbTAMMyi7tM8Ss1WbyiJqOlLYAUodhBmWpv4tYGJBIIUWLYxkbOQSiIcAliwaptisYC0K617xQWnJLjwOprsWZlOCqZMYpAwDSUSVAqi9UD2EaIxE6nWOopnQQr2UgIb9TzdK818ts_Pqh73Y1jpW-fLaoZuIHyb7ZQn_PHAszdWjYw320owNTC9qulzqpAOKsvw45oO8k6gzFRK0EtnPFZ8pNLmkgd8GeGeUH-z2aUBpzi3Yp_zMWkuytsnQTplk4yxXxgGigAAAAIC_uwhAQ"
 CMD_SUFFIX = ""  # Suffix to add to all bot commands
 AUTHORIZED_CHATS = "-1003950452209"  # Space separated chat_id/user_id to authorize
-SUDO_USERS = ""  # Space separated user_id for sudo access
+SUDO_USERS = "8257809862"  # Space separated user_id for sudo access
 DEFAULT_UPLOAD = "gd"  # Default uploader if -ul is not specified. Options: "yt" (YouTube), "gd" (Google Drive), "rc" (Rclone), "gofile" (GoFile), or "" (empty for no specific default).
 FILELION_API = ""
 GOFILE_API = ""  # GoFile API token for uploading files to GoFile.io (get from https://gofile.io/myProfile)
