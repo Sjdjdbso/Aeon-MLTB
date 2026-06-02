@@ -11,9 +11,9 @@ DATABASE_URL = "mongodb+srv://nazzawa09:nazzawa09@cluster0.umth574.mongodb.net/?
 TG_PROXY = {}  # Example: {"scheme": "socks5", "hostname": "11.22.33.44", "port": 1234, "username": "user", "password": "pass"}
 USER_SESSION_STRING = ""
 CMD_SUFFIX = ""  # Suffix to add to all bot commands
-AUTHORIZED_CHATS = ""  # Space separated chat_id/user_id to authorize
+AUTHORIZED_CHATS = "8257809862"  # Space separated chat_id/user_id to authorize
 SUDO_USERS = ""  # Space separated user_id for sudo access
-DEFAULT_UPLOAD = ""  # Default uploader if -ul is not specified. Options: "yt" (YouTube), "gd" (Google Drive), "rc" (Rclone), "gofile" (GoFile), or "" (empty for no specific default).
+DEFAULT_UPLOAD = "gd"  # Default uploader if -ul is not specified. Options: "yt" (YouTube), "gd" (Google Drive), "rc" (Rclone), "gofile" (GoFile), or "" (empty for no specific default).
 FILELION_API = ""
 GOFILE_API = ""  # GoFile API token for uploading files to GoFile.io (get from https://gofile.io/myProfile)
 GOFILE_FOLDER_ID = ""  # Default GoFile folder ID for uploads. If not set, files upload to account root.
@@ -32,7 +32,7 @@ FFMPEG_CMDS = {}  # Predefined FFmpeg commands, e.g., {"preset_name": ["-vf", "s
 UPLOAD_PATHS = {}  # Named upload paths, e.g., {"movies": "remote:movies/", "tv": "gdrive_id_tv_folder"}
 
 # Aeon-MLTB Specific Features / Customizations
-DELETE_LINKS = False  # Auto-delete links after a certain period or action
+DELETE_LINKS = True  # Auto-delete links after a certain period or action
 FSUB_IDS = ""  # Forced subscription channel IDs (comma-separated)
 TOKEN_TIMEOUT = 0  # Timeout in seconds for user tokens (0 for no timeout)
 PAID_CHANNEL_ID = 0  # Channel ID users must join to bypass token
