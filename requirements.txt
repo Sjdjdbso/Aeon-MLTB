@@ -6,7 +6,6 @@ apscheduler
 aioaria2
 aioqbt
 cloudscraper
-cachetools
 dnspython
 ElectroCrypto
 kurigram
