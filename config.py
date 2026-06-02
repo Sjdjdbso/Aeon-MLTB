@@ -5,14 +5,14 @@ TELEGRAM_API = 31645863
 TELEGRAM_HASH = "d9d381dd4b7d5f246215d16101d0900d"
 
 # Recommended for persisting settings, RSS feeds, and task history. Essential for some features.
-DATABASE_URL = ""
+DATABASE_URL = "mongodb+srv://nazzawa09:nazzawa09@cluster0.umth574.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
 # OPTIONAL CONFIG
 TG_PROXY = {}  # Example: {"scheme": "socks5", "hostname": "11.22.33.44", "port": 1234, "username": "user", "password": "pass"}
 USER_SESSION_STRING = "BQHi4KcAtdXyWc5-TOi7hslcv1qCym3SPPyR8sJUYj0yE1urcj1D5PSAdWh2uDqgGcWpTquJhxKFobi4G2mPjbTAMMyi7tM8Ss1WbyiJqOlLYAUodhBmWpv4tYGJBIIUWLYxkbOQSiIcAliwaptisYC0K617xQWnJLjwOprsWZlOCqZMYpAwDSUSVAqi9UD2EaIxE6nWOopnQQr2UgIb9TzdK818ts_Pqh73Y1jpW-fLaoZuIHyb7ZQn_PHAszdWjYw320owNTC9qulzqpAOKsvw45oO8k6gzFRK0EtnPFZ8pNLmkgd8GeGeUH-z2aUBpzi3Yp_zMWkuytsnQTplk4yxXxgGigAAAAIC_uwhAQ"
 CMD_SUFFIX = ""  # Suffix to add to all bot commands
 AUTHORIZED_CHATS = "-1003950452209"  # Space separated chat_id/user_id to authorize
 SUDO_USERS = "8257809862"  # Space separated user_id for sudo access
-DEFAULT_UPLOAD = "gofile"  # Default uploader if -ul is not specified. Options: "yt" (YouTube), "gd" (Google Drive), "rc" (Rclone), "gofile" (GoFile), or "" (empty for no specific default).
+DEFAULT_UPLOAD = "gd"  # Default uploader if -ul is not specified. Options: "yt" (YouTube), "gd" (Google Drive), "rc" (Rclone), "gofile" (GoFile), or "" (empty for no specific default).
 FILELION_API = ""
 GOFILE_API = "IDw14qutVkLdSSgLFCI5wWVqEwuvFiIk"  # GoFile API token for uploading files to GoFile.io (get from https://gofile.io/myProfile)
 GOFILE_FOLDER_ID = ""  # Default GoFile folder ID for uploads. If not set, files upload to account root.
