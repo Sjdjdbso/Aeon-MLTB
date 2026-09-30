@@ -118,24 +118,31 @@ sabnzbd_client = SabnzbdClient(
     api_key="mltb",
     port="8070",
 )
-subprocess.run(["xnox", "-d", f"--profile={os.getcwd()}"], check=False)
-subprocess.run(
-    [
-        "xnzb",
-        "-f",
-        "sabnzbd/SABnzbd.ini",
-        "-s",
-        ":::8070",
-        "-b",
-        "0",
-        "-d",
-        "-c",
-        "-l",
-        "0",
-        "--console",
-    ],
-    check=False,
-)
+try:
+    subprocess.run(["xnox", "-d", f"--profile={os.getcwd()}"], check=False)
+except FileNotFoundError:
+    pass
+
+try:
+    subprocess.run(
+        [
+            "xnzb",
+            "-f",
+            "sabnzbd/SABnzbd.ini",
+            "-s",
+            ":::8070",
+            "-b",
+            "0",
+            "-d",
+            "-c",
+            "-l",
+            "0",
+            "--console",
+        ],
+        check=False,
+    )
+except FileNotFoundError:
+    pass
 
 
 scheduler = AsyncIOScheduler(event_loop=bot_loop)
