@@ -13,14 +13,14 @@ xria \
     --bt-max-peers=0 \
     --enable-rpc=true \
     --rpc-max-request-size=1024M \
-    --max-connection-per-server=10 \
-    --max-concurrent-downloads=1000 \
+    --max-connection-per-server=4 \
+    --max-concurrent-downloads=10 \
     --split=10 \
     --seed-ratio=0 \
     --check-integrity=true \
     --continue=true \
     --daemon=true \
-    --disk-cache=40M \
+    --disk-cache=16M \
     --force-save=true \
     --min-split-size=10M \
     --follow-torrent=mem \

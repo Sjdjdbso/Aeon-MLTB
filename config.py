@@ -106,9 +106,9 @@ BASE_URL_PORT = 80  # Port for the BASE_URL (Default: 80)
 WEB_PINCODE = False  # Require a PIN code for web file selection
 
 # Queueing system
-QUEUE_ALL = 0  # Max concurrent tasks (upload + download)
-QUEUE_DOWNLOAD = 0  # Max concurrent download tasks
-QUEUE_UPLOAD = 0  # Max concurrent upload tasks
+QUEUE_ALL = 2  # Max concurrent tasks (upload + download)
+QUEUE_DOWNLOAD = 2  # Max concurrent download tasks
+QUEUE_UPLOAD = 2  # Max concurrent upload tasks
 
 # RSS
 RSS_DELAY = 600  # RSS feed check interval in seconds (Default: 600)
