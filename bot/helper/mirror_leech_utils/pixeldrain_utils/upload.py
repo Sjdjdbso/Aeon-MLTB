@@ -1,17 +1,27 @@
 from io import BufferedReader
+from json import JSONDecodeError
 from logging import getLogger
 from os import path as ospath
 from os import walk as oswalk
 from pathlib import Path
+from random import choice
+from time import time
 
 from aiofiles.os import path as aiopath
+from aiofiles.os import rename as aiorename
 from aiohttp import ClientSession
+from aiohttp.client_exceptions import ContentTypeError
 from tenacity import (
     RetryError,
+    retry,
+    retry_if_exception_type,
+    stop_after_attempt,
+    wait_exponential,
 )
 
+from bot import user_data
 from bot.core.config_manager import Config
-from bot.helper.ext_utils.bot_utils import SetInterval
+from bot.helper.ext_utils.bot_utils import SetInterval, sync_to_async
 
 LOGGER = getLogger(__name__)
 
@@ -21,12 +31,16 @@ class ProgressFileReader(BufferedReader):
         super().__init__(open(filename, "rb"))
         self.__read_callback = read_callback
         self.length = Path(filename).stat().st_size
+        self._last_tell = 0
 
     def read(self, size=None):
-        size = size or (self.length - self.tell())
+        ret = super().read(size or (self.length - self.tell()))
         if self.__read_callback:
-            self.__read_callback(self.tell())
-        return super().read(size)
+            current_tell = self.tell()
+            diff = current_tell - self._last_tell
+            self._last_tell = current_tell
+            self.__read_callback(diff)
+        return ret
 
 
 class PixeldrainUpload:
@@ -40,39 +54,39 @@ class PixeldrainUpload:
         self.is_uploading = False
         self.total_bytes = 0
         self._processed_bytes = 0
+        self._start_time = None
 
         self.api_url = "https://pixeldrain.com/api"
-        self.token = user_dict.get("PIXELDRAIN_API_KEY") or Config.PIXELDRAIN_API
+        user_dict = user_data.get(self.listener.user_id, {})
+        self.token = user_dict.get("PIXELDRAIN_TOKEN") or Config.PIXELDRAIN_API
 
-        self.total_bytes = (
-            sum(f.stat().st_size for f in Path(self._path).rglob("*") if f.is_file())
-            if ospath.isdir(self._path)
-            else ospath.getsize(self._path)
-        )
+        self.total_bytes = sum(
+            f.stat().st_size
+            for f in Path(self._path).rglob("*")
+            if f.is_file()
+        ) if ospath.isdir(self._path) else ospath.getsize(self._path)
 
         self.update_interval = 2
 
     @property
     def speed(self):
-        if self._updater:
-            return self._updater.speed
-        return 0
+        try:
+            return self._processed_bytes / (time() - self._start_time)
+        except Exception:
+            return 0
 
     @property
     def processed_bytes(self):
         return self._processed_bytes
 
-    def __progress_callback(self, current):
-        self._processed_bytes += current
-        if self._updater:
-            self._updater.update(current)
+    def __progress_callback(self, diff):
+        self._processed_bytes += diff
 
     async def progress(self):
         pass
 
     async def upload_aiohttp(self, url, file_path):
         import base64
-
         headers = {}
         if self.token:
             auth = base64.b64encode(f":{self.token}".encode()).decode()
@@ -81,9 +95,7 @@ class PixeldrainUpload:
         async with ClientSession() as session:
             file_name = ospath.basename(file_path)
             with ProgressFileReader(file_path, self.__progress_callback) as f:
-                async with session.put(
-                    f"{self.api_url}/file/{file_name}", data=f, headers=headers
-                ) as resp:
+                async with session.put(f"{self.api_url}/file/{file_name}", data=f, headers=headers) as resp:
                     return await resp.json()
 
     async def upload_file(self, file_path):
@@ -101,9 +113,8 @@ class PixeldrainUpload:
 
     async def _upload_dir(self, input_directory):
         import base64
-
         uploaded_ids = []
-        for root, _dirs, files in oswalk(input_directory):
+        for root, dirs, files in oswalk(input_directory):
             for file in files:
                 if self.listener.is_cancelled:
                     return None
@@ -124,17 +135,13 @@ class PixeldrainUpload:
                 headers["Authorization"] = f"Basic {auth}"
             data = {
                 "title": ospath.basename(input_directory),
-                "files": [{"id": i} for i in uploaded_ids],
+                "files": [{"id": i} for i in uploaded_ids]
             }
-            async with (
-                ClientSession() as session,
-                session.post(
-                    f"{self.api_url}/list", json=data, headers=headers
-                ) as resp,
-            ):
-                res = await resp.json()
-                if res and res.get("success"):
-                    return f"l/{res.get('id')}"
+            async with ClientSession() as session:
+                async with session.post(f"{self.api_url}/list", json=data, headers=headers) as resp:
+                    res = await resp.json()
+                    if res and res.get("success"):
+                        return f"l/{res.get('id')}"
         elif len(uploaded_ids) == 1:
             return f"u/{uploaded_ids[0]}"
         return None
@@ -142,6 +149,7 @@ class PixeldrainUpload:
     async def upload(self):
         try:
             LOGGER.info(f"Pixeldrain Uploading: {self._path}")
+            self._start_time = time()
             self._updater = SetInterval(self.update_interval, self.progress)
 
             # Run the async process directly
@@ -194,6 +202,4 @@ class PixeldrainUpload:
         self.listener.is_cancelled = True
         if self.is_uploading:
             LOGGER.info(f"Cancelling Pixeldrain Upload: {self.listener.name}")
-            await self.listener.on_upload_error(
-                "Pixeldrain upload has been cancelled!"
-            )
+            await self.listener.on_upload_error("Pixeldrain upload has been cancelled!")

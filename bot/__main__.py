@@ -91,7 +91,7 @@ async def main():
 
     await gather(
         set_commands(),
-        jdownloader.boot(),
+        # jdownloader.boot(),
     )
     await gather(
         save_settings(),

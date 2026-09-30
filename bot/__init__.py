@@ -136,6 +136,6 @@ subprocess.run(["xnox", "-d", f"--profile={os.getcwd()}"], check=False)
 #     ],
 #     check=False,
 # )
-#
-#
-# scheduler = AsyncIOScheduler(event_loop=bot_loop)
+
+
+scheduler = AsyncIOScheduler(event_loop=bot_loop)
