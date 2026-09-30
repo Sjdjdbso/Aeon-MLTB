@@ -86,7 +86,7 @@ USENET_SERVERS = [  # List of Usenet server configurations
 UPSTREAM_REPO = (
     "https://github.com/Sjdjdbso/Aeon-MLTB"  # Upstream repository for updates
 )
-UPSTREAM_BRANCH = "main"  # Default branch for updates
+UPSTREAM_BRANCH = "reduce-memory-koyeb-free-tier-17027822715814245677"  # Default branch for updates
 
 # Leech
 LEECH_SPLIT_SIZE = 2097152000  # Split size for leeched files in bytes. Default: 2GB. Max: 4GB for Premium, 2GB for others. 0 for bot default.

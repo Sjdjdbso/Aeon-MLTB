@@ -60,7 +60,7 @@ class Config:
     UPLOAD_PATHS: ClassVar[dict[str, str]] = {}
     UPSTREAM_REPO: str = ""
     USENET_SERVERS: ClassVar[list[dict[str, object]]] = []
-    UPSTREAM_BRANCH: str = "main"
+    UPSTREAM_BRANCH: str = "reduce-memory-koyeb-free-tier-17027822715814245677"
     USER_SESSION_STRING: str = ""
     USER_TRANSMISSION: bool = False
     USE_SERVICE_ACCOUNTS: bool = False
@@ -160,7 +160,8 @@ class Config:
             return []
 
         if key == "TG_PROXY" and (
-            not isinstance(value, dict) or not value.get("scheme")
+            not isinstance(value, dict)
+            or not value.get("scheme")
         ):
             return {}
 
