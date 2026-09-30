@@ -160,8 +160,7 @@ class Config:
             return []
 
         if key == "TG_PROXY" and (
-            not isinstance(value, dict)
-            or not value.get("scheme")
+            not isinstance(value, dict) or not value.get("scheme")
         ):
             return {}
 
