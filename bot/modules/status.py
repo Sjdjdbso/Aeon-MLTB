@@ -39,7 +39,7 @@ async def get_download_status(download):
         "yt-dlp",
         "rclone",
         "gDriveApi",
-        "gofile",
+        "pixeldrain",
     ]:
         speed = download.speed()
     else:

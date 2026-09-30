@@ -38,12 +38,12 @@ from bot.helper.ext_utils.links_utils import is_gdrive_id
 from bot.helper.ext_utils.status_utils import get_readable_file_size
 from bot.helper.ext_utils.task_manager import check_running_tasks, start_from_queued
 from bot.helper.mirror_leech_utils.gdrive_utils.upload import GoogleDriveUpload
-from bot.helper.mirror_leech_utils.gofile_utils.upload import GoFileUpload
+from bot.helper.mirror_leech_utils.pixeldrain_utils.upload import PixeldrainUpload
 from bot.helper.mirror_leech_utils.rclone_utils.transfer import RcloneTransferHelper
 from bot.helper.mirror_leech_utils.status_utils.gdrive_status import (
     GoogleDriveStatus,
 )
-from bot.helper.mirror_leech_utils.status_utils.gofile_status import GoFileStatus
+from bot.helper.mirror_leech_utils.status_utils.pixeldrain_status import PixeldrainStatus
 from bot.helper.mirror_leech_utils.status_utils.queue_status import QueueStatus
 from bot.helper.mirror_leech_utils.status_utils.rclone_status import RcloneStatus
 from bot.helper.mirror_leech_utils.status_utils.telegram_status import TelegramStatus
@@ -409,16 +409,16 @@ class TaskListener(TaskConfig):
                 sync_to_async(yt.upload),
             )
             del yt
-        elif self.up_dest == "gofile":
-            LOGGER.info(f"GoFile Upload Name: {self.name}")
-            gofile = GoFileUpload(self, up_path)
+        elif self.up_dest == "pixeldrain":
+            LOGGER.info(f"Pixeldrain Upload Name: {self.name}")
+            pixeldrain = PixeldrainUpload(self, up_path)
             async with task_dict_lock:
-                task_dict[self.mid] = GoFileStatus(self, gofile, gid, "up")
+                task_dict[self.mid] = PixeldrainStatus(self, pixeldrain, gid, "up")
             await gather(
                 update_status_message(self.message.chat.id),
-                gofile.upload(),
+                pixeldrain.upload(),
             )
-            del gofile
+            del pixeldrain
         elif is_gdrive_id(self.up_dest):
             LOGGER.info(f"Uploading to Google Drive: {self.name}")
             drive = GoogleDriveUpload(self, up_path)

@@ -12,10 +12,10 @@ USER_SESSION_STRING = "BQHi4KcAtdXyWc5-TOi7hslcv1qCym3SPPyR8sJUYj0yE1urcj1D5PSAd
 CMD_SUFFIX = ""  # Suffix to add to all bot commands
 AUTHORIZED_CHATS = "-1003950452209"  # Space separated chat_id/user_id to authorize
 SUDO_USERS = "8257809862"  # Space separated user_id for sudo access
-DEFAULT_UPLOAD = "gd"  # Default uploader if -ul is not specified. Options: "yt" (YouTube), "gd" (Google Drive), "rc" (Rclone), "gofile" (GoFile), or "" (empty for no specific default).
+DEFAULT_UPLOAD = "gd"  # Default uploader if -ul is not specified. Options: "yt" (YouTube), "gd" (Google Drive), "rc" (Rclone), "pixeldrain" (Pixeldrain), or "" (empty for no specific default).
 FILELION_API = ""
-GOFILE_API = "IDw14qutVkLdSSgLFCI5wWVqEwuvFiIk"  # GoFile API token for uploading files to GoFile.io (get from https://gofile.io/myProfile)
-GOFILE_FOLDER_ID = ""  # Default GoFile folder ID for uploads. If not set, files upload to account root.
+PIXELDRAIN_API = "IDw14qutVkLdSSgLFCI5wWVqEwuvFiIk"  # Pixeldrain API token for uploading files to Pixeldrain.io (get from https://pixeldrain.io/myProfile)
+PIXELDRAIN_FOLDER_ID = ""  # Default Pixeldrain folder ID for uploads. If not set, files upload to account root.
 STREAMWISH_API = ""
 EXCLUDED_EXTENSIONS = (
     ""  # Space separated file extensions to exclude (e.g., .log .exe)

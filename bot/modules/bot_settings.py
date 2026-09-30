@@ -59,8 +59,8 @@ DEFAULT_VALUES = {
     "RSS_DELAY": 600,
     "UPSTREAM_BRANCH": "main",
     "DEFAULT_UPLOAD": "gd",
-    "GOFILE_API": "",
-    "GOFILE_FOLDER_ID": "",
+    "PIXELDRAIN_API": "",
+    "PIXELDRAIN_FOLDER_ID": "",
 }
 
 
@@ -565,7 +565,7 @@ async def edit_bot_settings(client, query):
             show_alert=True,
         )
         nzb_options.clear()
-        await update_nzb_options()
+        pass
         await database.update_nzb_config()
     elif data[1] == "emptynzb":
         await query.answer()

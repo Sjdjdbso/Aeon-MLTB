@@ -370,9 +370,7 @@ class Mirror(TaskListener):
         if len(self.link) > 0:
             LOGGER.info(self.link)
             if "pixeldrain.com/u/" in self.link:
-                self.link = self.link.replace(
-                    "pixeldrain.com/u/", "pixeldrain.com/api/file/"
-                )
+                self.link = self.link.replace("pixeldrain.com/u/", "pixeldrain.com/api/file/")
 
         try:
             await self.before_start()

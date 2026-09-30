@@ -49,7 +49,7 @@ leech_options = [
 ]
 rclone_options = ["RCLONE_CONFIG", "RCLONE_PATH", "RCLONE_FLAGS"]
 gdrive_options = ["TOKEN_PICKLE", "GDRIVE_ID", "INDEX_URL"]
-gofile_options = ["GOFILE_TOKEN", "GOFILE_FOLDER_ID"]
+pixeldrain_options = ["PIXELDRAIN_TOKEN", "PIXELDRAIN_FOLDER_ID"]
 
 
 async def get_user_settings(from_user, stype="main"):
@@ -201,24 +201,24 @@ Gdrive Token <b>{tokenmsg}</b>
 Gdrive ID is <code>{gdrive_id}</code>
 Index URL is <code>{index}</code>
 Stop Duplicate is <b>{sd_msg}</b>"""
-    elif stype == "gofile":
-        buttons.data_button("GoFile Token", f"userset {user_id} menu GOFILE_TOKEN")
+    elif stype == "pixeldrain":
+        buttons.data_button("Pixeldrain Token", f"userset {user_id} menu PIXELDRAIN_TOKEN")
         buttons.data_button(
-            "GoFile Folder ID", f"userset {user_id} menu GOFILE_FOLDER_ID"
+            "Pixeldrain Folder ID", f"userset {user_id} menu PIXELDRAIN_FOLDER_ID"
         )
         buttons.data_button("Back", f"userset {user_id} back")
         buttons.data_button("Close", f"userset {user_id} close")
 
-        gofile_token = "Set" if user_dict.get("GOFILE_TOKEN", False) else "Not Set"
-        gofile_folder = user_dict.get("GOFILE_FOLDER_ID", "None") or "None"
+        pixeldrain_token = "Set" if user_dict.get("PIXELDRAIN_TOKEN", False) else "Not Set"
+        pixeldrain_folder = user_dict.get("PIXELDRAIN_FOLDER_ID", "None") or "None"
 
-        text = f"""<u>GoFile Settings for {name}</u>
-GoFile Token is <b>{gofile_token}</b>
-GoFile Folder ID is <code>{gofile_folder}</code>"""
+        text = f"""<u>Pixeldrain Settings for {name}</u>
+Pixeldrain Token is <b>{pixeldrain_token}</b>
+Pixeldrain Folder ID is <code>{pixeldrain_folder}</code>"""
     elif stype == "upload_dest":
         buttons.data_button("Gdrive", f"userset {user_id} set_upload gd")
         buttons.data_button("Rclone", f"userset {user_id} set_upload rc")
-        buttons.data_button("GoFile", f"userset {user_id} set_upload gofile")
+        buttons.data_button("Pixeldrain", f"userset {user_id} set_upload pixeldrain")
         buttons.data_button("YouTube", f"userset {user_id} set_upload yt")
         buttons.data_button("Back", f"userset {user_id} back")
         buttons.data_button("Close", f"userset {user_id} close")
@@ -285,7 +285,7 @@ Add to Playlist ID: <code>{yt_add_to_playlist_id}</code>"""
         buttons.data_button("Leech", f"userset {user_id} leech")
         buttons.data_button("Rclone", f"userset {user_id} rclone")
         buttons.data_button("Gdrive API", f"userset {user_id} gdrive")
-        buttons.data_button("GoFile", f"userset {user_id} gofile")
+        buttons.data_button("Pixeldrain", f"userset {user_id} pixeldrain")
         buttons.data_button("YouTube", f"userset {user_id} youtube")
 
         upload_paths = user_dict.get("UPLOAD_PATHS", {})
@@ -309,8 +309,8 @@ Add to Playlist ID: <code>{yt_add_to_playlist_id}</code>"""
             du = "Gdrive API"
         elif default_upload == "rc":
             du = "Rclone"
-        elif default_upload == "gofile":
-            du = "GoFile"
+        elif default_upload == "pixeldrain":
+            du = "Pixeldrain"
         else:
             du = "YouTube"
 
@@ -563,8 +563,8 @@ async def get_menu(option, message, user_id):
         back_to = "rclone"
     elif option in gdrive_options:
         back_to = "gdrive"
-    elif option in gofile_options:
-        back_to = "gofile"
+    elif option in pixeldrain_options:
+        back_to = "pixeldrain"
     elif option in [
         "YT_DEFAULT_PRIVACY",
         "YT_DEFAULT_CATEGORY",
@@ -695,7 +695,7 @@ async def edit_user_settings(client, query):
         await query.answer("Not Yours!", show_alert=True)
     elif data[2] == "setevent":
         await query.answer()
-    elif data[2] in ["leech", "gdrive", "rclone", "gofile", "youtube"]:
+    elif data[2] in ["leech", "gdrive", "rclone", "pixeldrain", "youtube"]:
         await query.answer()
         await update_user_settings(query, data[2])
     elif data[2] == "menu":
