@@ -202,14 +202,18 @@ Gdrive ID is <code>{gdrive_id}</code>
 Index URL is <code>{index}</code>
 Stop Duplicate is <b>{sd_msg}</b>"""
     elif stype == "pixeldrain":
-        buttons.data_button("Pixeldrain Token", f"userset {user_id} menu PIXELDRAIN_TOKEN")
+        buttons.data_button(
+            "Pixeldrain Token", f"userset {user_id} menu PIXELDRAIN_TOKEN"
+        )
         buttons.data_button(
             "Pixeldrain Folder ID", f"userset {user_id} menu PIXELDRAIN_FOLDER_ID"
         )
         buttons.data_button("Back", f"userset {user_id} back")
         buttons.data_button("Close", f"userset {user_id} close")
 
-        pixeldrain_token = "Set" if user_dict.get("PIXELDRAIN_TOKEN", False) else "Not Set"
+        pixeldrain_token = (
+            "Set" if user_dict.get("PIXELDRAIN_TOKEN", False) else "Not Set"
+        )
         pixeldrain_folder = user_dict.get("PIXELDRAIN_FOLDER_ID", "None") or "None"
 
         text = f"""<u>Pixeldrain Settings for {name}</u>
