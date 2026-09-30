@@ -126,13 +126,15 @@ class PixeldrainUpload:
                 "title": ospath.basename(input_directory),
                 "files": [{"id": i} for i in uploaded_ids],
             }
-            async with ClientSession() as session:
-                async with session.post(
+            async with (
+                ClientSession() as session,
+                session.post(
                     f"{self.api_url}/list", json=data, headers=headers
-                ) as resp:
-                    res = await resp.json()
-                    if res and res.get("success"):
-                        return f"l/{res.get('id')}"
+                ) as resp,
+            ):
+                res = await resp.json()
+                if res and res.get("success"):
+                    return f"l/{res.get('id')}"
         elif len(uploaded_ids) == 1:
             return f"u/{uploaded_ids[0]}"
         return None
