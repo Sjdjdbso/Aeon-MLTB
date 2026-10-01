@@ -4,7 +4,7 @@ from bot.core.config_manager import Config
 from bot.core.telegram_manager import TgClient
 
 
-class TestProxyHandling(unittest.IsolatedAsyncioTestCase):
+class TestProxyHandling(unittest.TestCase):
     def setUp(self):
         Config.TG_PROXY = {}
 
@@ -35,19 +35,19 @@ class TestProxyHandling(unittest.IsolatedAsyncioTestCase):
             {"scheme": "socks5", "hostname": "127.0.0.1", "port": 1080},
         )
 
-    async def test_get_proxy_returns_none_for_empty(self):
+    def test_get_proxy_returns_none_for_empty(self):
         Config.TG_PROXY = {}
-        proxy = await TgClient._get_proxy()
+        proxy = TgClient._get_proxy()
         self.assertIsNone(proxy)
 
-    async def test_get_proxy_returns_dict_for_valid(self):
+    def test_get_proxy_returns_dict_for_valid(self):
         valid_proxy = {
             "scheme": "socks5",
             "hostname": "127.0.0.1",
             "port": 1080,
         }
         Config.TG_PROXY = valid_proxy
-        proxy = await TgClient._get_proxy()
+        proxy = TgClient._get_proxy()
         self.assertEqual(proxy, valid_proxy)
 
 

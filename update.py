@@ -85,34 +85,35 @@ BOT_ID = BOT_TOKEN.split(":", 1)[0]
 
 DATABASE_URL = config_file.get("DATABASE_URL", "") or os.getenv("DATABASE_URL", "")
 
+env_upstream_repo = os.getenv("UPSTREAM_REPO", "")
+env_upstream_branch = os.getenv("UPSTREAM_BRANCH", "")
+config_upstream_repo = config_file.get("UPSTREAM_REPO", "")
+config_upstream_branch = config_file.get("UPSTREAM_BRANCH", "")
+
 if DATABASE_URL:
     try:
         conn = MongoClient(DATABASE_URL, server_api=ServerApi("1"))
         db = conn.luna
         config_dict = db.settings.config.find_one({"_id": BOT_ID})
         if config_dict is not None:
-            config_file["UPSTREAM_REPO"] = config_dict.get(
-                "UPSTREAM_REPO",
-                config_file.get("UPSTREAM_REPO"),
-            )
-            config_file["UPSTREAM_BRANCH"] = config_dict.get(
-                "UPSTREAM_BRANCH",
-                config_file.get("UPSTREAM_BRANCH"),
-            )
+            if not config_upstream_repo:
+                config_file["UPSTREAM_REPO"] = config_dict.get("UPSTREAM_REPO", "")
+            if not config_upstream_branch:
+                config_file["UPSTREAM_BRANCH"] = config_dict.get("UPSTREAM_BRANCH", "")
         conn.close()
     except Exception as e:
         log_error(f"Database ERROR: {e}")
 
 UPSTREAM_REPO = (
-    config_file.get("UPSTREAM_REPO", "")
-    or os.getenv("UPSTREAM_REPO", "")
-    or "https://github.com/AeonOrg/Aeon-MLTB"
+    env_upstream_repo
+    or config_file.get("UPSTREAM_REPO", "")
+    or "https://github.com/Sjdjdbso/Aeon-MLTB"
 )
 
 UPSTREAM_BRANCH = (
-    config_file.get("UPSTREAM_BRANCH", "")
-    or os.getenv("UPSTREAM_BRANCH", "")
-    or "main"
+    env_upstream_branch
+    or config_file.get("UPSTREAM_BRANCH", "")
+    or "reduce-memory-koyeb-free-tier-17027822715814245677"
 )
 
 if UPSTREAM_REPO:
