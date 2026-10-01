@@ -3,7 +3,6 @@ from uvloop import install
 
 install()
 
-import contextlib
 import os
 import subprocess
 from asyncio import Lock, new_event_loop, set_event_loop
@@ -119,10 +118,12 @@ sabnzbd_client = SabnzbdClient(
     api_key="mltb",
     port="8070",
 )
-with contextlib.suppress(FileNotFoundError):
+try:
     subprocess.run(["xnox", "-d", f"--profile={os.getcwd()}"], check=False)
+except FileNotFoundError:
+    pass
 
-with contextlib.suppress(FileNotFoundError):
+try:
     subprocess.run(
         [
             "xnzb",
@@ -140,6 +141,8 @@ with contextlib.suppress(FileNotFoundError):
         ],
         check=False,
     )
+except FileNotFoundError:
+    pass
 
 
 scheduler = AsyncIOScheduler(event_loop=bot_loop)
