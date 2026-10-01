@@ -99,7 +99,9 @@ if DATABASE_URL:
             if not config_upstream_repo:
                 config_file["UPSTREAM_REPO"] = config_dict.get("UPSTREAM_REPO", "")
             if not config_upstream_branch:
-                config_file["UPSTREAM_BRANCH"] = config_dict.get("UPSTREAM_BRANCH", "")
+                config_file["UPSTREAM_BRANCH"] = config_dict.get(
+                    "UPSTREAM_BRANCH", ""
+                )
         conn.close()
     except Exception as e:
         log_error(f"Database ERROR: {e}")
