@@ -57,7 +57,7 @@ handler_dict = {}
 DEFAULT_VALUES = {
     "LEECH_SPLIT_SIZE": TgClient.MAX_SPLIT_SIZE,
     "RSS_DELAY": 600,
-    "UPSTREAM_BRANCH": "main",
+    "UPSTREAM_BRANCH": "reduce-memory-koyeb-free-tier-17027822715814245677",
     "DEFAULT_UPLOAD": "gd",
     "GOFILE_API": "",
     "GOFILE_FOLDER_ID": "",
