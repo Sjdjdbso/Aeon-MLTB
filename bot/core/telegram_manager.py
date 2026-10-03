@@ -21,11 +21,16 @@ class TgClient:
     async def start_bot(cls):
         LOGGER.info("Creating client from BOT_TOKEN")
         cls.ID = Config.BOT_TOKEN.split(":", 1)[0]
+        proxy = (
+            Config.TG_PROXY
+            if (isinstance(Config.TG_PROXY, dict) and Config.TG_PROXY.get("scheme"))
+            else None
+        )
         cls.bot = Client(
             cls.ID,
             Config.TELEGRAM_API,
             Config.TELEGRAM_HASH,
-            proxy=Config.TG_PROXY,
+            proxy=proxy,
             bot_token=Config.BOT_TOKEN,
             workdir="/app",
             parse_mode=enums.ParseMode.HTML,
@@ -42,12 +47,17 @@ class TgClient:
     async def start_user(cls):
         if Config.USER_SESSION_STRING:
             LOGGER.info("Creating client from USER_SESSION_STRING")
+            proxy = (
+                Config.TG_PROXY
+                if (isinstance(Config.TG_PROXY, dict) and Config.TG_PROXY.get("scheme"))
+                else None
+            )
             try:
                 cls.user = Client(
                     "user",
                     Config.TELEGRAM_API,
                     Config.TELEGRAM_HASH,
-                    proxy=Config.TG_PROXY,
+                    proxy=proxy,
                     session_string=Config.USER_SESSION_STRING,
                     workdir="/app",
                     parse_mode=enums.ParseMode.HTML,

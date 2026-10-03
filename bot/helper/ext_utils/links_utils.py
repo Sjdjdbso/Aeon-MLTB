@@ -55,3 +55,9 @@ def is_gdrive_id(id_: str):
             id_,
         ),
     )
+
+
+def rewrite_pixeldrain_url(url: str) -> str:
+    if "pixeldrain.com/u/" in url:
+        return url.replace("pixeldrain.com/u/", "pixeldrain.com/api/file/")
+    return url
