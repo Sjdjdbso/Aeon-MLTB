@@ -23,6 +23,7 @@ from bot.helper.ext_utils.links_utils import (
     is_rclone_path,
     is_telegram_link,
     is_url,
+    rewrite_pixeldrain_url,
 )
 from bot.helper.listeners.task_listener import TaskListener
 from bot.helper.mirror_leech_utils.download_utils.aria2_download import (
@@ -133,7 +134,7 @@ class Mirror(TaskListener):
         self.up_dest = args["-up"]
         self.raw_up_dest = args["-up"]
         self.rc_flags = args["-rcf"]
-        self.link = args["link"]
+        self.link = rewrite_pixeldrain_url(args["link"]) if args["link"] else ""
         self.compress = args["-z"]
         self.extract = args["-e"]
         self.join = args["-j"]

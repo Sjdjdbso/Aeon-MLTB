@@ -1,4 +1,7 @@
 .venv/*
+__pycache__/
+*.pyc
+aeon-server
 accounts/
 thumbnails/
 rclone/
