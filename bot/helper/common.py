@@ -47,6 +47,7 @@ from .ext_utils.files_utils import (
     split_file,
 )
 from .ext_utils.links_utils import (
+    fix_pixeldrain_url,
     is_gdrive_id,
     is_gdrive_link,
     is_rclone_path,
@@ -240,6 +241,8 @@ class TaskConfig:
                 self.rc_flags = self.user_dict["RCLONE_FLAGS"]
             elif "RCLONE_FLAGS" not in self.user_dict and Config.RCLONE_FLAGS:
                 self.rc_flags = Config.RCLONE_FLAGS
+        if self.link:
+            self.link = fix_pixeldrain_url(self.link)
         if self.link not in ["rcl", "gdl"]:
             if not self.is_jd:
                 if is_rclone_path(self.link):

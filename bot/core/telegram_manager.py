@@ -18,6 +18,16 @@ class TgClient:
     MAX_SPLIT_SIZE = 2097152000
 
     @classmethod
+    def _get_proxy(cls):
+        if (
+            Config.TG_PROXY
+            and isinstance(Config.TG_PROXY, dict)
+            and Config.TG_PROXY.get("scheme")
+        ):
+            return Config.TG_PROXY
+        return None
+
+    @classmethod
     async def start_bot(cls):
         LOGGER.info("Creating client from BOT_TOKEN")
         cls.ID = Config.BOT_TOKEN.split(":", 1)[0]
@@ -25,7 +35,7 @@ class TgClient:
             cls.ID,
             Config.TELEGRAM_API,
             Config.TELEGRAM_HASH,
-            proxy=Config.TG_PROXY,
+            proxy=cls._get_proxy(),
             bot_token=Config.BOT_TOKEN,
             workdir="/app",
             parse_mode=enums.ParseMode.HTML,
@@ -47,7 +57,7 @@ class TgClient:
                     "user",
                     Config.TELEGRAM_API,
                     Config.TELEGRAM_HASH,
-                    proxy=Config.TG_PROXY,
+                    proxy=cls._get_proxy(),
                     session_string=Config.USER_SESSION_STRING,
                     workdir="/app",
                     parse_mode=enums.ParseMode.HTML,
