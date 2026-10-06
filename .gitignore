@@ -19,3 +19,7 @@ list_drives.txt
 shorteners.txt
 cookies.txt
 *.session
+bin/
+*.log
+__pycache__/
+*.pyc
