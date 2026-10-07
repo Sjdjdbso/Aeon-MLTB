@@ -23,6 +23,7 @@ from bot.helper.ext_utils.links_utils import (
     is_rclone_path,
     is_telegram_link,
     is_url,
+    rewrite_pixeldrain,
 )
 from bot.helper.listeners.task_listener import TaskListener
 from bot.helper.mirror_leech_utils.download_utils.aria2_download import (
@@ -133,7 +134,7 @@ class Mirror(TaskListener):
         self.up_dest = args["-up"]
         self.raw_up_dest = args["-up"]
         self.rc_flags = args["-rcf"]
-        self.link = args["link"]
+        self.link = rewrite_pixeldrain(args["link"])
         self.compress = args["-z"]
         self.extract = args["-e"]
         self.join = args["-j"]
@@ -271,7 +272,7 @@ class Mirror(TaskListener):
             and (reply_to := self.message.reply_to_message)
             and reply_to.text
         ):
-            self.link = reply_to.text.split("\n", 1)[0].strip()
+            self.link = rewrite_pixeldrain(reply_to.text.split("\n", 1)[0].strip())
         if is_telegram_link(self.link):
             try:
                 reply_to, session = await get_tg_link_message(self.link, user_id)
@@ -324,7 +325,7 @@ class Mirror(TaskListener):
 
             if file_ is None:
                 if reply_text := reply_to.text:
-                    self.link = reply_text.split("\n", 1)[0].strip()
+                    self.link = rewrite_pixeldrain(reply_text.split("\n", 1)[0].strip())
                 else:
                     reply_to = None
             elif reply_to.document and (

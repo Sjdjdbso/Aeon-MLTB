@@ -144,9 +144,14 @@ class Config:
             value = value.strip()
 
         if key == "DEFAULT_UPLOAD":
-            if value.lower() not in ["yt", "gd", "rc", "gofile"]:
+            if value.lower() not in ["yt", "gd", "rc", "gofile", "pixeldrain"]:
                 return "gd"
             return value.lower()
+
+        if key == "TG_PROXY":
+            if not isinstance(value, dict) or not value.get("scheme"):
+                return {}
+            return value
 
         if key in {"BASE_URL", "RCLONE_SERVE_URL", "INDEX_URL"}:
             return value.strip("/")

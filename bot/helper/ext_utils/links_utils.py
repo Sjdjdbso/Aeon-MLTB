@@ -1,4 +1,13 @@
 from re import match as re_match
+from re import sub as re_sub
+
+
+def rewrite_pixeldrain(url: str) -> str:
+    if not isinstance(url, str):
+        return url
+    if "pixeldrain.com/u/" in url:
+        return re_sub(r"pixeldrain\.com/u/([a-zA-Z0-9_-]+)", r"pixeldrain.com/api/file/\1", url)
+    return url
 
 
 def is_magnet(url: str):
