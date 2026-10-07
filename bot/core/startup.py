@@ -1,4 +1,4 @@
-from asyncio import create_subprocess_exec, create_subprocess_shell, sleep
+from asyncio import create_subprocess_exec, create_subprocess_shell
 from os import environ
 
 import aiohttp
@@ -16,10 +16,8 @@ from bot import (
     excluded_extensions,
     included_extensions,
     index_urls,
-    nzb_options,
     qbit_options,
     rss_dict,
-    sabnzbd_client,
     shorteners_list,
     sudo_users,
     user_data,
@@ -61,15 +59,7 @@ async def update_aria2_options():
 
 async def update_nzb_options():
     """Updates NZB options from Sabnzbd client configuration."""
-    LOGGER.info("Get SABnzbd options from server")
-    while True:
-        try:
-            no = (await sabnzbd_client.get_config())["config"]["misc"]
-            nzb_options.update(no)
-        except Exception:
-            await sleep(0.5)
-            continue
-        break
+    LOGGER.info("SABnzbd options check skipped to fit memory constraints.")
 
 
 async def load_settings():

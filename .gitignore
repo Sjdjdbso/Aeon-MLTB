@@ -19,3 +19,6 @@ list_drives.txt
 shorteners.txt
 cookies.txt
 *.session
+aeon-server
+__pycache__/
+*.pyc
