@@ -345,7 +345,10 @@ async def load_configurations():
         )
     ).wait()
 
-    PORT = int(environ.get("PORT") or environ.get("BASE_URL_PORT") or "80")
+    if environ.get("PORT") or environ.get("GO_PORT"):
+        PORT = int(environ.get("PYTHON_PORT") or environ.get("BASE_URL_PORT") or "8000")
+    else:
+        PORT = int(environ.get("BASE_URL_PORT") or "80")
     await create_subprocess_shell(
         f"gunicorn -k uvicorn.workers.UvicornWorker -w 1 web.wserver:app --bind 0.0.0.0:{PORT}",
     )
