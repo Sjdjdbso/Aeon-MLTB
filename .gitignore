@@ -19,3 +19,5 @@ list_drives.txt
 shorteners.txt
 cookies.txt
 *.session
+aeon-server
+aeon-server.log
