@@ -90,7 +90,7 @@ class JDownloader(MyJdApi):
             except Exception:
                 pass
 
-        cmd = "cpulimit -l 30 -- java -Xms256m -Xmx500m -Dsun.jnu.encoding=UTF-8 -Dfile.encoding=UTF-8 -Djava.awt.headless=true -jar /JDownloader/JDownloader.jar"
+        cmd = "cpulimit -l 30 -- java -Xms16m -Xmx128m -Dsun.jnu.encoding=UTF-8 -Dfile.encoding=UTF-8 -Djava.awt.headless=true -jar /JDownloader/JDownloader.jar"
 
         self.is_connected = True
         _, __, code = await cmd_exec(cmd, shell=True)

@@ -33,7 +33,7 @@ from bot import (
 )
 from bot.core.config_manager import Config
 from bot.core.jdownloader_booter import jdownloader
-from bot.core.startup import update_nzb_options, update_variables
+from bot.core.startup import update_variables
 from bot.core.telegram_manager import TgClient
 from bot.core.torrent_manager import TorrentManager
 from bot.helper.ext_utils.bot_utils import SetInterval, new_task
@@ -59,8 +59,8 @@ DEFAULT_VALUES = {
     "RSS_DELAY": 600,
     "UPSTREAM_BRANCH": "main",
     "DEFAULT_UPLOAD": "gd",
-    "GOFILE_API": "",
-    "GOFILE_FOLDER_ID": "",
+    "PIXELDRAIN_API": "",
+    "PIXELDRAIN_FOLDER_ID": "",
 }
 
 
@@ -565,7 +565,6 @@ async def edit_bot_settings(client, query):
             show_alert=True,
         )
         nzb_options.clear()
-        await update_nzb_options()
         await database.update_nzb_config()
     elif data[1] == "emptynzb":
         await query.answer()

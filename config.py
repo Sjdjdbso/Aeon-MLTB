@@ -1,5 +1,5 @@
 # REQUIRED CONFIG
-BOT_TOKEN = "8640195617:AAEquLauMYNDXKJG4ZD32hcY6KvA8-wcsh4"
+BOT_TOKEN = "8623774118:AAEseSRDdSy2IVuD1Fppjzq8r-SsX3h0jqU"
 OWNER_ID = 8257809862
 TELEGRAM_API = 31645863
 TELEGRAM_HASH = "d9d381dd4b7d5f246215d16101d0900d"
@@ -12,10 +12,10 @@ USER_SESSION_STRING = "BQHi4KcAtdXyWc5-TOi7hslcv1qCym3SPPyR8sJUYj0yE1urcj1D5PSAd
 CMD_SUFFIX = ""  # Suffix to add to all bot commands
 AUTHORIZED_CHATS = "-1003950452209"  # Space separated chat_id/user_id to authorize
 SUDO_USERS = "8257809862"  # Space separated user_id for sudo access
-DEFAULT_UPLOAD = "gd"  # Default uploader if -ul is not specified. Options: "yt" (YouTube), "gd" (Google Drive), "rc" (Rclone), "gofile" (GoFile), or "" (empty for no specific default).
+DEFAULT_UPLOAD = "gd"  # Default uploader if -ul is not specified. Options: "yt" (YouTube), "gd" (Google Drive), "rc" (Rclone), "pixeldrain" (Pixeldrain), or "" (empty for no specific default).
 FILELION_API = ""
-GOFILE_API = "IDw14qutVkLdSSgLFCI5wWVqEwuvFiIk"  # GoFile API token for uploading files to GoFile.io (get from https://gofile.io/myProfile)
-GOFILE_FOLDER_ID = ""  # Default GoFile folder ID for uploads. If not set, files upload to account root.
+PIXELDRAIN_API = "IDw14qutVkLdSSgLFCI5wWVqEwuvFiIk"  # Pixeldrain API token for uploading files to Pixeldrain.io (get from https://pixeldrain.io/myProfile)
+PIXELDRAIN_FOLDER_ID = ""  # Default Pixeldrain folder ID for uploads. If not set, files upload to account root.
 STREAMWISH_API = ""
 EXCLUDED_EXTENSIONS = (
     ""  # Space separated file extensions to exclude (e.g., .log .exe)
@@ -106,9 +106,9 @@ BASE_URL_PORT = 80  # Port for the BASE_URL (Default: 80)
 WEB_PINCODE = False  # Require a PIN code for web file selection
 
 # Queueing system
-QUEUE_ALL = 0  # Max concurrent tasks (upload + download)
-QUEUE_DOWNLOAD = 0  # Max concurrent download tasks
-QUEUE_UPLOAD = 0  # Max concurrent upload tasks
+QUEUE_ALL = 2  # Max concurrent tasks (upload + download)
+QUEUE_DOWNLOAD = 2  # Max concurrent download tasks
+QUEUE_UPLOAD = 2  # Max concurrent upload tasks
 
 # RSS
 RSS_DELAY = 600  # RSS feed check interval in seconds (Default: 600)

@@ -5,14 +5,14 @@ from bot.helper.ext_utils.status_utils import (
 )
 
 
-class GoFileStatus:
+class PixeldrainStatus:
     def __init__(self, listener, obj, gid, status):
         self.listener = listener
         self._obj = obj
         self._size = self.listener.size
         self._gid = gid
         self._status = status
-        self.tool = "gofile"
+        self.tool = "pixeldrain"
 
     def processed_bytes(self):
         return get_readable_file_size(self._obj.processed_bytes)
